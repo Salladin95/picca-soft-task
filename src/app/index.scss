@@ -1,0 +1,46 @@
+@use '~/shared/styles/colors' as c;
+@use '~/shared/styles/mixins/utilities' as u;
+@use '~/shared/styles/mixins/typography' as t;
+
+@import url('~/app/reset.scss');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: c.$main-text;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  @include u.flexbox();
+}
+
+.flex-center {
+  @include u.center();
+}
+
+.h1 {
+  @include t.heading(1);
+}
+
+.h2 {
+  @include t.heading(2);
+}
+
+.h3 {
+  @include t.heading(3);
+}
+
+.p1 {
+  @include t.paragraph(1.125rem);
+}
+
+.p2 {
+  @include t.paragraph(1rem);
+}
+
+.p3 {
+  @include t.paragraph(0.875rem, 1.25rem);
+}
