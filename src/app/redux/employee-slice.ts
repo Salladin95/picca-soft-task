@@ -1,9 +1,9 @@
 import { EmployeeType } from "~/shared/types"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-import { filterEmployees, sortEmployees } from "~/app/redux/helpers"
+import { applyFilters, applySort } from "~/app/redux/helpers"
 
-interface EmployeeState {
+export interface EmployeeState {
 	employees: EmployeeType[]
 	modifiedEmployees: EmployeeType[]
 	filter: {
@@ -30,25 +30,18 @@ const employeeSlice = createSlice({
 	initialState,
 	reducers: {
 		setEmployees: (state, action: PayloadAction<EmployeeType[]>) => {
-			state.employees = sortEmployees({ employees: action.payload, sortBy: state.sortBy })
-			state.modifiedEmployees = [...state.employees]
+			state.employees = action.payload
+			const filtered = applyFilters(action.payload, state.filter)
+			state.modifiedEmployees = applySort(filtered, state.sortBy)
 		},
 		setFilter: (state, action: PayloadAction<{ role: string; isArchive: boolean }>) => {
-			const { payload } = action
-			state.filter = payload
-			state.modifiedEmployees = filterEmployees({
-				employees: state.employees,
-				filter: action.payload,
-			})
+			state.filter = action.payload
+			const filtered = applyFilters(state.employees, action.payload)
+			state.modifiedEmployees = applySort(filtered, state.sortBy)
 		},
 		setSortBy: (state, action: PayloadAction<string>) => {
-			const { payload } = action
-			state.sortBy = payload
-			console.log(state.sortBy)
-			state.modifiedEmployees = sortEmployees({
-				employees: state.modifiedEmployees,
-				sortBy: action.payload,
-			})
+			state.sortBy = action.payload
+			state.modifiedEmployees = applySort(applyFilters(state.employees, state.filter), action.payload)
 		},
 		setEditMode: (state, action: PayloadAction<number | null>) => {
 			state.editMode = action.payload
@@ -67,6 +60,7 @@ const employeeSlice = createSlice({
 	},
 })
 
-export const { setEmployees, setFilter, setSortBy, setEditMode, updateEmployee, addEmployee } = employeeSlice.actions
+export const { setEmployees, setSortBy, setFilter, setEditMode, updateEmployee, addEmployee } =
+	employeeSlice.actions
 
 export default employeeSlice.reducer

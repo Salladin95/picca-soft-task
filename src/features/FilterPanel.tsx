@@ -9,7 +9,7 @@ export function FilterPanel() {
 	const dispatch = useDispatch<AppDispatch>()
 
 	const [role, setRole] = useState("")
-	const [isArchive, setIsArchive] = useState(false)
+	const [isArchive, setIsArchive] = useState(true)
 
 	useEffect(() => {
 		dispatch(setFilter({ role, isArchive }))
@@ -30,7 +30,7 @@ export function FilterPanel() {
 					<input
 						type="checkbox"
 						checked={isArchive}
-						onClick={() => {
+						onChange={() => {
 							setIsArchive(!isArchive)
 						}}
 					/>
