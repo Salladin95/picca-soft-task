@@ -60,7 +60,6 @@ const employeeSlice = createSlice({
 	},
 })
 
-export const { setEmployees, setSortBy, setFilter, setEditMode, updateEmployee, addEmployee } =
-	employeeSlice.actions
+export const { setEmployees, setSortBy, setFilter, setEditMode, updateEmployee, addEmployee } = employeeSlice.actions
 
 export default employeeSlice.reducer
