@@ -1,9 +1,14 @@
-import { RouterView } from "~/app/RouterView.tsx"
+import { Providers } from "~/app/providers"
+import { RouterView } from "~/app/RouterView"
 
 import "./index.scss"
 
 function App() {
-	return <RouterView />
+	return (
+		<Providers>
+			<RouterView />
+		</Providers>
+	)
 }
 
 export default App

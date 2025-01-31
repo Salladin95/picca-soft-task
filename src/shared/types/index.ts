@@ -1,3 +1,5 @@
+import React from "react"
+
 export type EmployeeType = {
 	id: number
 	name: string
@@ -6,3 +8,5 @@ export type EmployeeType = {
 	phone: string
 	birthday: string
 }
+
+export type WithChildren = { children: React.ReactNode }
