@@ -7,12 +7,12 @@ import {
 	selectEditMode,
 	selectEmployeeById,
 	selectFilter,
-	selectFilteredEmployees,
+	selectModifiedEmployees,
 	selectSortBy,
 } from "~/app/redux/selectors.ts"
 
 export const useEmployees = () => useSelector(selectAllEmployees)
-export const useFilteredEmployees = () => useSelector(selectFilteredEmployees)
+export const useModifiedEmployees = () => useSelector(selectModifiedEmployees)
 
 export const useSelectEmployeeById = (id: number) => {
 	const employee = useSelector((state: RootState) => selectEmployeeById(state, id))

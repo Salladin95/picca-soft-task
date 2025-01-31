@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
 
-import { useEmployees } from "~/app/redux/hooks"
+import { useModifiedEmployees } from "~/app/redux/hooks"
 import { EmployeeList, FilterPanel, SortControls } from "~/features"
 
 export function HomePage() {
-	const employees = useEmployees()
+	const employees = useModifiedEmployees()
 
 	return (
 		<div>

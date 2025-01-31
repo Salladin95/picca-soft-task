@@ -1,63 +1,42 @@
-import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { useEffect, useState } from "react"
+
+import { useFilterRole } from "~/app/redux/hooks"
+import { AppDispatch, setFilter } from "~/app/redux"
 
 export function FilterPanel() {
-	// const [employees, setEmployees] = useState(employeesData)
-	// const [positionFilter, setPositionFilter] = useState("Все")
-	// const [archivedFilter, setArchivedFilter] = useState(false)
-	//
-	// const filterEmployees = () => {
-	// 	let filteredEmployees = employeesData.filter((employee) => {
-	// 		if (positionFilter === "Все" || employee.position === positionFilter) {
-	// 			return archivedFilter ? employee.archived : !employee.archived
-	// 		}
-	// 		return false
-	// 	})
-	// 	setEmployees(filteredEmployees)
-	// }
-	//
-	// const sortByName = () => {
-	// 	const sortedEmployees = [...employees]
-	// 	sortedEmployees.sort((a, b) => a.name.localeCompare(b.name))
-	// 	setEmployees(sortedEmployees)
-	// }
-	//
-	// const sortByBirthdate = () => {
-	// 	const sortedEmployees = [...employees]
-	// 	sortedEmployees.sort((a, b) => new Date(a.birthdate) - new Date(b.birthdate))
-	// 	setEmployees(sortedEmployees)
-	// }
+	const filterBy = useFilterRole()
+	const dispatch = useDispatch<AppDispatch>()
+
+	const [role, setRole] = useState("")
+	const [isArchive, setIsArchive] = useState(false)
+
+	useEffect(() => {
+		dispatch(setFilter({ role, isArchive }))
+	}, [role, isArchive])
 
 	return (
 		<div>
-			{/*<div>*/}
-			{/*	<label htmlFor="positionFilter">Должность:</label>*/}
-			{/*	<select id="positionFilter" value={positionFilter} onChange={(e) => setPositionFilter(e.target.value)}>*/}
-			{/*		<option value="Все">Все</option>*/}
-			{/*		<option value="Повар">Повар</option>*/}
-			{/*		<option value="Официант">Официант</option>*/}
-			{/*		<option value="Водитель">Водитель</option>*/}
-			{/*	</select>*/}
+			<div>
+				<label htmlFor="positionFilter">Должность:</label>
+				<select id="positionFilter" value={filterBy.role} onChange={(e) => setRole(e.target.value)}>
+					<option value="">Все</option>
+					<option value="cook">Повар</option>
+					<option value="waiter">Официант</option>
+					<option value="driver">Водитель</option>
+				</select>
 
-			{/*	<label>*/}
-			{/*		<input type="checkbox" checked={archivedFilter} onChange={(e) => setArchivedFilter(e.target.checked)} />В*/}
-			{/*		архиве*/}
-			{/*	</label>*/}
-
-			{/*	<button onClick={filterEmployees}>Применить фильтр</button>*/}
-			{/*</div>*/}
-
-			{/*<div>*/}
-			{/*	<button onClick={sortByName}>Сортировать по имени</button>*/}
-			{/*	<button onClick={sortByBirthdate}>Сортировать по дате рождения</button>*/}
-			{/*</div>*/}
-
-			{/*<ul>*/}
-			{/*	{employees.map((employee) => (*/}
-			{/*		<li key={employee.name}>*/}
-			{/*			{employee.name} - {employee.position} - {employee.phone}*/}
-			{/*		</li>*/}
-			{/*	))}*/}
-			{/*</ul>*/}
+				<label>
+					<input
+						type="checkbox"
+						checked={isArchive}
+						onClick={() => {
+							setIsArchive(!isArchive)
+						}}
+					/>
+					<span>В архиве</span>
+				</label>
+			</div>
 		</div>
 	)
 }

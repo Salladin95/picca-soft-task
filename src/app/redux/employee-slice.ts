@@ -1,22 +1,22 @@
 import { EmployeeType } from "~/shared/types"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-import { applyFiltersAndSorting } from "~/app/redux/helpers"
+import { filterEmployees, sortEmployees } from "~/app/redux/helpers"
 
 interface EmployeeState {
 	employees: EmployeeType[]
-	filteredEmployees: EmployeeType[]
+	modifiedEmployees: EmployeeType[]
 	filter: {
 		role: string
 		isArchive: boolean
 	}
-	sortBy: string // 'name' | 'birthday'
+	sortBy: string
 	editMode: number | null // id редактируемого сотрудника или null
 }
 
 const initialState: EmployeeState = {
 	employees: [],
-	filteredEmployees: [],
+	modifiedEmployees: [],
 	filter: {
 		role: "",
 		isArchive: false,
@@ -30,26 +30,23 @@ const employeeSlice = createSlice({
 	initialState,
 	reducers: {
 		setEmployees: (state, action: PayloadAction<EmployeeType[]>) => {
-			state.employees = action.payload
-			state.filteredEmployees = applyFiltersAndSorting({
-				employees: action.payload,
-				filter: state.filter,
-				sortBy: state.sortBy,
-			})
+			state.employees = sortEmployees({ employees: action.payload, sortBy: state.sortBy })
+			state.modifiedEmployees = [...state.employees]
 		},
 		setFilter: (state, action: PayloadAction<{ role: string; isArchive: boolean }>) => {
-			state.filter = action.payload
-			state.filteredEmployees = applyFiltersAndSorting({
+			const { payload } = action
+			state.filter = payload
+			state.modifiedEmployees = filterEmployees({
 				employees: state.employees,
 				filter: action.payload,
-				sortBy: state.sortBy,
 			})
 		},
 		setSortBy: (state, action: PayloadAction<string>) => {
-			state.sortBy = action.payload
-			state.filteredEmployees = applyFiltersAndSorting({
-				employees: state.employees,
-				filter: state.filter,
+			const { payload } = action
+			state.sortBy = payload
+			console.log(state.sortBy)
+			state.modifiedEmployees = sortEmployees({
+				employees: state.modifiedEmployees,
 				sortBy: action.payload,
 			})
 		},
@@ -61,21 +58,11 @@ const employeeSlice = createSlice({
 				employee.id === action.payload.id ? action.payload : employee,
 			)
 			state.employees = updatedEmployees
-			state.filteredEmployees = applyFiltersAndSorting({
-				employees: updatedEmployees,
-				filter: state.filter,
-				sortBy: state.sortBy,
-			})
 			state.editMode = null
 		},
 		addEmployee: (state, action: PayloadAction<EmployeeType>) => {
 			const newEmployees = [...state.employees, action.payload]
 			state.employees = newEmployees
-			state.filteredEmployees = applyFiltersAndSorting({
-				employees: newEmployees,
-				filter: state.filter,
-				sortBy: state.sortBy,
-			})
 		},
 	},
 })
