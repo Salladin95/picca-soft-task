@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
 
-import { useEmployees } from "~/shared/hooks"
+import { useEmployees } from "~/app/redux/hooks"
 import { EmployeeList, FilterPanel, SortControls } from "~/features"
-
 
 export function HomePage() {
 	const employees = useEmployees()
+
 	return (
 		<div>
 			<h1 className={"text-center"}>Список сотрудников</h1>
