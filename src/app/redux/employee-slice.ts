@@ -35,9 +35,7 @@ const employeeSlice = createSlice({
 			state.employees = action.payload
 			const modifiedEmployees = applySort(applyFilters(action.payload, state.filter), state.sortBy)
 			state.modifiedEmployees = modifiedEmployees
-		},
-		setModifiedEmployees: (state, action: PayloadAction<EmployeeType[]>) => {
-			state.modifiedEmployees = action.payload
+			setToLocalStorage(EMPLOYEES_LOCAL_STORE_KEYS.EMPLOYEES, action.payload)
 		},
 		setFilter: (state, action: PayloadAction<FilterType>) => {
 			state.filter = action.payload
@@ -60,16 +58,18 @@ const employeeSlice = createSlice({
 			)
 			state.employees = updatedEmployees
 			state.editMode = null
+			setToLocalStorage(EMPLOYEES_LOCAL_STORE_KEYS.EMPLOYEES, updatedEmployees)
 		},
 		addEmployee: (state, action: PayloadAction<EmployeeType>) => {
 			const newEmployees = [...state.employees, action.payload]
 			const newModifiedEmployees = [...state.modifiedEmployees, action.payload]
 			state.employees = newEmployees
 			state.modifiedEmployees = newModifiedEmployees
+			setToLocalStorage(EMPLOYEES_LOCAL_STORE_KEYS.EMPLOYEES, newModifiedEmployees)
 		},
 	},
 })
 
-export const { setEmployees, setSortBy, setFilter, setModifiedEmployees, setEditMode, updateEmployee, addEmployee } = employeeSlice.actions
+export const { setEmployees, setSortBy, setFilter, setEditMode, updateEmployee, addEmployee } = employeeSlice.actions
 
 export default employeeSlice.reducer
