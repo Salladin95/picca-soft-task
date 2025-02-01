@@ -1,14 +1,13 @@
 import { ChangeEvent } from "react"
-import { useDispatch } from "react-redux"
 
-import { useFilter } from "~/app/redux/hooks"
+import { setFilter } from "~/app/redux"
 import { isFilterRoles } from "~/shared/guards"
 import { FILTER_ROLES } from "~/app/redux/types"
-import { AppDispatch, setFilter } from "~/app/redux"
+import { useAppDispatch, useFilter } from "~/app/redux/hooks"
 
 export function FilterPanel() {
 	const filterBy = useFilter()
-	const dispatch = useDispatch<AppDispatch>()
+	const dispatch = useAppDispatch()
 
 	function handleRoleUpdate(e: ChangeEvent<HTMLSelectElement>) {
 		const value = e.target.value

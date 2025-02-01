@@ -1,10 +1,9 @@
-import { useDispatch } from "react-redux"
-
-import { AppDispatch, setSortBy } from "~/app/redux"
+import { setSortBy } from "~/app/redux"
+import { useAppDispatch } from "~/app/redux/hooks"
 import { SORT_BY, SortByType } from "~/app/redux/types"
 
 export function SortControls() {
-	const dispatch = useDispatch<AppDispatch>()
+	const dispatch = useAppDispatch()
 
 	function handleSortUpdate(sortBy: SortByType) {
 		dispatch(setSortBy(sortBy))
