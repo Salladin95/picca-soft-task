@@ -7,5 +7,3 @@ export const selectEmployeeById = (state: RootState, id: number) =>
 
 export const selectFilter = (state: RootState) => state.employees.filter
 export const selectSortBy = (state: RootState) => state.employees.sortBy
-
-export const selectEditMode = (state: RootState) => state.employees.editMode

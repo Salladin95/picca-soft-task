@@ -1,3 +1,3 @@
 export * from "./HomePage"
 export * from "./AddEmployee"
-export * from "./EmployeePage"
+export * from "./EditEmployeePage.tsx"
