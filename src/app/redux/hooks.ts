@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
-import { RootState } from "~/app/redux/store"
-
+import { AppDispatch, RootState } from "~/app/redux/store"
 import {
 	selectAllEmployees,
 	selectEditMode,
@@ -9,7 +8,7 @@ import {
 	selectFilter,
 	selectModifiedEmployees,
 	selectSortBy,
-} from "~/app/redux/selectors.ts"
+} from "~/app/redux/selectors"
 
 export const useEmployees = () => useSelector(selectAllEmployees)
 export const useModifiedEmployees = () => useSelector(selectModifiedEmployees)
@@ -23,3 +22,4 @@ export const useFilter = () => useSelector(selectFilter)
 export const useSortBy = () => useSelector(selectSortBy)
 
 export const useSelectEditMode = () => useSelector(selectEditMode)
+export const useAppDispatch = () => useDispatch<AppDispatch>()
