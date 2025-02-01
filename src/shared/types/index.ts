@@ -11,3 +11,5 @@ export type EmployeeType = {
 }
 
 export type WithChildren = { children: React.ReactNode }
+
+export type WithId = { id: string }

@@ -11,7 +11,6 @@ export interface EmployeeState {
 	modifiedEmployees: EmployeeType[]
 	filter: FilterType
 	sortBy: SortByType
-	editMode: number | null // id редактируемого сотрудника или null
 }
 
 const initialFilter = getSafeLocalStoreItem<FilterType>(EMPLOYEES_LOCAL_STORE_KEYS.FILTER_BY, isFilter, {
@@ -24,7 +23,6 @@ const initialState: EmployeeState = {
 	modifiedEmployees: [],
 	filter: initialFilter,
 	sortBy: getSafeLocalStoreItem<SortByType>(EMPLOYEES_LOCAL_STORE_KEYS.SORT_BY, isSortBy, SORT_BY.NAME),
-	editMode: null,
 }
 
 const employeeSlice = createSlice({
@@ -49,15 +47,11 @@ const employeeSlice = createSlice({
 			state.modifiedEmployees = modifiedEmployees
 			setToLocalStorage(EMPLOYEES_LOCAL_STORE_KEYS.SORT_BY, action.payload)
 		},
-		setEditMode: (state, action: PayloadAction<number | null>) => {
-			state.editMode = action.payload
-		},
 		updateEmployee: (state, action: PayloadAction<EmployeeType>) => {
 			const updatedEmployees = state.employees.map((employee) =>
 				employee.id === action.payload.id ? action.payload : employee,
 			)
 			state.employees = updatedEmployees
-			state.editMode = null
 			setToLocalStorage(EMPLOYEES_LOCAL_STORE_KEYS.EMPLOYEES, updatedEmployees)
 		},
 		addEmployee: (state, action: PayloadAction<EmployeeType>) => {
@@ -70,6 +64,6 @@ const employeeSlice = createSlice({
 	},
 })
 
-export const { setEmployees, setSortBy, setFilter, setEditMode, updateEmployee, addEmployee } = employeeSlice.actions
+export const { setEmployees, setSortBy, setFilter, updateEmployee, addEmployee } = employeeSlice.actions
 
 export default employeeSlice.reducer
