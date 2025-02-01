@@ -1,39 +1,40 @@
+import { ChangeEvent } from "react"
 import { useDispatch } from "react-redux"
-import { useEffect, useState } from "react"
 
-import { useFilterRole } from "~/app/redux/hooks"
+import { useFilter } from "~/app/redux/hooks"
+import { isFilterRoles } from "~/shared/guards"
+import { FILTER_ROLES } from "~/app/redux/types"
 import { AppDispatch, setFilter } from "~/app/redux"
 
 export function FilterPanel() {
-	const filterBy = useFilterRole()
+	const filterBy = useFilter()
 	const dispatch = useDispatch<AppDispatch>()
 
-	const [role, setRole] = useState("")
-	const [isArchive, setIsArchive] = useState(true)
+	function handleRoleUpdate(e: ChangeEvent<HTMLSelectElement>) {
+		const value = e.target.value
+		if (isFilterRoles(value)) {
+			dispatch(setFilter({ ...filterBy, role: value }))
+		}
+	}
 
-	useEffect(() => {
-		dispatch(setFilter({ role, isArchive }))
-	}, [role, isArchive])
+	function handleArchiveUpdate(e: ChangeEvent<HTMLInputElement>) {
+		const isArchive = e.target.checked
+		dispatch(setFilter({ ...filterBy, isArchive }))
+	}
 
 	return (
 		<div>
 			<div>
 				<label htmlFor="positionFilter">Должность:</label>
-				<select id="positionFilter" value={filterBy.role} onChange={(e) => setRole(e.target.value)}>
-					<option value="">Все</option>
-					<option value="cook">Повар</option>
-					<option value="waiter">Официант</option>
-					<option value="driver">Водитель</option>
+				<select id="positionFilter" value={filterBy.role} onChange={handleRoleUpdate}>
+					<option value={FILTER_ROLES.ALL}>Все</option>
+					<option value={FILTER_ROLES.COOK}>Повар</option>
+					<option value={FILTER_ROLES.WAITER}>Официант</option>
+					<option value={FILTER_ROLES.DRIVER}>Водитель</option>
 				</select>
 
 				<label>
-					<input
-						type="checkbox"
-						checked={isArchive}
-						onChange={() => {
-							setIsArchive(!isArchive)
-						}}
-					/>
+					<input type="checkbox" checked={filterBy.isArchive} onChange={handleArchiveUpdate} />
 					<span>В архиве</span>
 				</label>
 			</div>

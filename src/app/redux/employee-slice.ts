@@ -1,27 +1,29 @@
 import { EmployeeType } from "~/shared/types"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
+import { isFilter, isSortBy } from "~/shared/guards"
 import { applyFilters, applySort } from "~/app/redux/helpers"
+import { getSafeLocalStoreItem, setToLocalStorage } from "~/shared/lib/localStore"
+import { EMPLOYEES_LOCAL_STORE_KEYS, FILTER_ROLES, FilterType, SORT_BY, SortByType } from "~/app/redux/types"
 
 export interface EmployeeState {
 	employees: EmployeeType[]
 	modifiedEmployees: EmployeeType[]
-	filter: {
-		role: string
-		isArchive: boolean
-	}
-	sortBy: string
+	filter: FilterType
+	sortBy: SortByType
 	editMode: number | null // id редактируемого сотрудника или null
 }
+
+const initialFilter = getSafeLocalStoreItem<FilterType>(EMPLOYEES_LOCAL_STORE_KEYS.FILTER_BY, isFilter, {
+	role: FILTER_ROLES.ALL,
+	isArchive: false,
+})
 
 const initialState: EmployeeState = {
 	employees: [],
 	modifiedEmployees: [],
-	filter: {
-		role: "",
-		isArchive: false,
-	},
-	sortBy: "name",
+	filter: initialFilter,
+	sortBy: getSafeLocalStoreItem<SortByType>(EMPLOYEES_LOCAL_STORE_KEYS.SORT_BY, isSortBy, SORT_BY.NAME),
 	editMode: null,
 }
 
@@ -31,17 +33,23 @@ const employeeSlice = createSlice({
 	reducers: {
 		setEmployees: (state, action: PayloadAction<EmployeeType[]>) => {
 			state.employees = action.payload
-			const filtered = applyFilters(action.payload, state.filter)
-			state.modifiedEmployees = applySort(filtered, state.sortBy)
+			const modifiedEmployees = applySort(applyFilters(action.payload, state.filter), state.sortBy)
+			state.modifiedEmployees = modifiedEmployees
 		},
-		setFilter: (state, action: PayloadAction<{ role: string; isArchive: boolean }>) => {
+		setModifiedEmployees: (state, action: PayloadAction<EmployeeType[]>) => {
+			state.modifiedEmployees = action.payload
+		},
+		setFilter: (state, action: PayloadAction<FilterType>) => {
 			state.filter = action.payload
-			const filtered = applyFilters(state.employees, action.payload)
-			state.modifiedEmployees = applySort(filtered, state.sortBy)
+			const modifiedEmployees = applyFilters(state.employees, action.payload)
+			state.modifiedEmployees = applySort(modifiedEmployees, state.sortBy)
+			setToLocalStorage(EMPLOYEES_LOCAL_STORE_KEYS.FILTER_BY, action.payload)
 		},
-		setSortBy: (state, action: PayloadAction<string>) => {
+		setSortBy: (state, action: PayloadAction<SortByType>) => {
 			state.sortBy = action.payload
-			state.modifiedEmployees = applySort(applyFilters(state.employees, state.filter), action.payload)
+			const modifiedEmployees = applySort(state.modifiedEmployees, action.payload)
+			state.modifiedEmployees = modifiedEmployees
+			setToLocalStorage(EMPLOYEES_LOCAL_STORE_KEYS.SORT_BY, action.payload)
 		},
 		setEditMode: (state, action: PayloadAction<number | null>) => {
 			state.editMode = action.payload
@@ -55,11 +63,13 @@ const employeeSlice = createSlice({
 		},
 		addEmployee: (state, action: PayloadAction<EmployeeType>) => {
 			const newEmployees = [...state.employees, action.payload]
+			const newModifiedEmployees = [...state.modifiedEmployees, action.payload]
 			state.employees = newEmployees
+			state.modifiedEmployees = newModifiedEmployees
 		},
 	},
 })
 
-export const { setEmployees, setSortBy, setFilter, setEditMode, updateEmployee, addEmployee } = employeeSlice.actions
+export const { setEmployees, setSortBy, setFilter, setModifiedEmployees, setEditMode, updateEmployee, addEmployee } = employeeSlice.actions
 
 export default employeeSlice.reducer

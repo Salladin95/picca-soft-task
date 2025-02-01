@@ -19,7 +19,7 @@ export const useSelectEmployeeById = (id: number) => {
 	return employee
 }
 
-export const useFilterRole = () => useSelector(selectFilter)
-export const useSelectRole = () => useSelector(selectSortBy)
+export const useFilter = () => useSelector(selectFilter)
+export const useSortBy = () => useSelector(selectSortBy)
 
 export const useSelectEditMode = () => useSelector(selectEditMode)
