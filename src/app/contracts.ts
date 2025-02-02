@@ -1,0 +1,5 @@
+export const LOCAL_STORE_KEYS = {
+	EMPLOYEES: "EMPLOYEES",
+	SORT_BY: "SORT_BY",
+	FILTER_BY: "FILTER_BY",
+} as const

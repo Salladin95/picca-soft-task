@@ -1,15 +1,6 @@
-import React from "react"
-import { FilterRolesType } from "~/app/redux/types"
+import { ReactNode } from "react"
 
-export type EmployeeType = {
-	id: number
-	name: string
-	isArchive: boolean
-	role: FilterRolesType
-	phone: string
-	birthday: string
-}
-
-export type WithChildren = { children: React.ReactNode }
+export type WithChildren = { children: ReactNode }
 
 export type WithId = { id: string }
+export type WithClassName = { className?: string }

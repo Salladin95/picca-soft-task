@@ -1,6 +1,6 @@
-import { Employee } from "~/entities"
+import { Employee } from "~/entities/employee"
 
-import { type EmployeeType } from "~/shared/types"
+import { type EmployeeType } from "~/entities/employee"
 
 type EmployeeListProps = {
 	employees: EmployeeType[]
