@@ -5,11 +5,10 @@ import { useEmployees } from "~/app/redux/hooks"
 import { LOCAL_STORE_KEYS } from "~/app/contracts"
 import { isFilter, isSortBy } from "~/shared/guards"
 import { EmployeeList } from "~/features/employee-list"
-import { applySort } from "~/features/sort-controls/lib"
 import { EMPLOYEE_ROLES, EmployeeType } from "~/entities/employee"
 import { getSafeLocalStoreItem, setToLocalStorage } from "~/shared/lib"
-import { SortControls, SORT_BY, SortByType } from "~/features/sort-controls"
 import { FilterPanel, FilterType, applyFilter } from "~/features/filter-panel"
+import { SortControls, SORT_BY, SortByType, applySort } from "~/features/sort-controls"
 
 export function HomePage() {
 	const employees = useEmployees()
@@ -30,17 +29,17 @@ export function HomePage() {
 
 	const handleFilterSortUpdate = (filter: FilterType) => {
 		setFilter(filter)
+		setToLocalStorage(LOCAL_STORE_KEYS.FILTER_BY, filter)
 	}
 
 	const handleSortUpdate = (sortBy: SortByType) => {
 		setSortBy(sortBy)
+		setToLocalStorage(LOCAL_STORE_KEYS.SORT_BY, sortBy)
 	}
 
 	useEffect(() => {
-		setToLocalStorage(LOCAL_STORE_KEYS.SORT_BY, sortBy)
-		setToLocalStorage(LOCAL_STORE_KEYS.FILTER_BY, filter)
 		setCurrentEmployees(applySort(applyFilter(employees, filter), sortBy))
-	}, [sortBy, filter, employees])
+	}, [employees, filter, sortBy])
 
 	return (
 		<div>
