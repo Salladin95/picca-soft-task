@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 
-import { type EmployeeType } from "~/shared/types"
+import { type EmployeeType, EMPLOYEE_ROLE_TO_LABEL } from "~/entities/employee/contracts"
 
 type EmployeeProps = {
 	employee: EmployeeType
@@ -19,7 +19,7 @@ export function Employee(props: EmployeeProps) {
 	return (
 		<section onClick={handleClick} className={"employee"}>
 			<p>{employee.name}</p>
-			<p>{employee.role}</p>
+			<p>{EMPLOYEE_ROLE_TO_LABEL[employee.role]}</p>
 			<p>{employee.phone}</p>
 		</section>
 	)

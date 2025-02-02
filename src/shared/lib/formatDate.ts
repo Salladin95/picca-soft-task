@@ -1,8 +1,10 @@
+import { format } from "date-fns"
+
 /**
- * Formats a given date into `dd.MM.yyyy` format.
+ * Formats a given date into `dd.mm.yyyy` format.
  *
  * @param {Date} date - The date to be formatted.
- * @returns {string} - The formatted date in `dd.MM.yyyy` format.
+ * @returns {string} - The formatted date in `dd.mm.yyyy` format.
  *
  * @example
  * const formattedDate = formatDate(new Date('1986-01-26'));
@@ -10,8 +12,5 @@
  */
 
 export function formatDate(date: Date): string {
-	const day = String(date.getDate()).padStart(2, "0") // Add leading zero if necessary
-	const month = String(date.getMonth() + 1).padStart(2, "0") // Months are 0-indexed, so add 1
-	const year = date.getFullYear()
-	return `${day}.${month}.${year}`
+	return format(date, "dd.mm.yyyy")
 }

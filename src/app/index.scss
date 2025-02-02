@@ -44,3 +44,7 @@ body {
 .p3 {
   @include t.paragraph(0.875rem, 1.25rem);
 }
+
+.mb-4 {
+  margin-bottom: 1rem;
+}

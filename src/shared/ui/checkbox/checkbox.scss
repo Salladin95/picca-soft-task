@@ -1,0 +1,72 @@
+@use '~/shared/styles/colors' as c;
+@use '~/shared/styles/mixins/utilities' as u;
+@use '~/shared/styles/mixins/typography' as t;
+
+.checkbox {
+  @include u.flexbox(center, flex-start);
+  cursor: pointer;
+  position: relative;
+  gap: 0.5rem;
+  user-select: none;
+  font-size: 1rem;
+  color: c.$main-text;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: c.$blue-500;
+  }
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .checked {
+      background-color: c.$blue-500;
+      border-color: c.$blue-500;
+
+      &::after {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    &:disabled + .checked {
+      background-color: c.$gray;
+      border-color: c.$gray;
+      cursor: not-allowed;
+    }
+
+    &:focus + .checked {
+      box-shadow: 0 0 5px c.$blue-400;
+    }
+  }
+
+  .checked {
+    width: 20px;
+    height: 20px;
+    border: 2px solid c.$dark-gray;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+    background-color: c.$white;
+    position: relative;
+
+    &::after {
+      content: "✔";
+      font-size: 14px;
+      color: c.$white;
+      position: absolute;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &__label {
+    @include t.typography(1rem, 500);
+  }
+}

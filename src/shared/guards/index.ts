@@ -1,12 +1,13 @@
-import { EmployeeType } from "~/shared/types"
-import { FILTER_ROLES, FilterRolesType, FilterType, SORT_BY, SortByType } from "~/app/redux"
+import { FilterType } from "src/features/filter-panel"
+import { SORT_BY, SortByType } from "~/features/sort-controls"
+import { EMPLOYEE_ROLES, EmployeeRoleType, EmployeeType } from "~/entities/employee"
 
 export function isSortBy(value: unknown): value is SortByType {
 	return Object.values(SORT_BY).includes(value as SortByType)
 }
 
-export function isFilterRoles(value: unknown): value is FilterRolesType {
-	return Object.values(FILTER_ROLES).includes(value as FilterRolesType)
+export function isEmployeeRole(value: unknown): value is EmployeeRoleType {
+	return Object.values(EMPLOYEE_ROLES).includes(value as EmployeeRoleType)
 }
 
 export function isFilter(value: unknown): value is FilterType {
@@ -14,7 +15,7 @@ export function isFilter(value: unknown): value is FilterType {
 		value instanceof Object &&
 		value !== null &&
 		"role" in value &&
-		isFilterRoles(value.role) && // Use the isFilterRoles type guard
+		isEmployeeRole(value.role) && // Use the isFilterRoles type guard
 		"isArchive" in value &&
 		typeof value.isArchive === "boolean"
 	)
@@ -31,12 +32,12 @@ export function isEmployee(value: unknown): value is EmployeeType {
 		"name" in value &&
 		typeof value.name === "string" &&
 		"role" in value &&
-		isFilterRoles(value.role)
+		isEmployeeRole(value.role)
 	)
 }
 
 export function areEmployees(value: unknown): value is EmployeeType[] {
 	return (
-		Array.isArray(value) && value.every((item) => isEmployee(item)) // Check if every item in the array is an EmployeeType
+		Array.isArray(value) && value.every((item) => isEmployee(item)) // Check if every item in the array is an Types
 	)
 }

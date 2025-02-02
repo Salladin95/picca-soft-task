@@ -1,0 +1,36 @@
+@use '~/shared/styles/colors' as c;
+@use '~/shared/styles/mixins/typography' as t;
+@use '~/shared/styles/mixins/utilities' as u;
+
+.sort-controls {
+  display: flex;
+  gap: 1.6rem; // 16px
+
+  button {
+    background-color: c.$white;
+    color: c.$main-text;
+    border: 1px solid c.$gray;
+    border-radius: 0.8rem;
+    @include u.p(0.5rem, 0.8rem);
+    @include t.paragraph();
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+    &:hover {
+      background-color: c.$blue-100;
+      border-color: c.$blue-500;
+      color: c.$blue-600;
+    }
+
+    &[data-active='true'] {
+      background-color: c.$blue-500;
+      color: c.$white;
+      border-color: c.$blue-500;
+
+      &:hover {
+        background-color: c.$blue-600;
+        border-color: c.$blue-600;
+      }
+    }
+  }
+}
