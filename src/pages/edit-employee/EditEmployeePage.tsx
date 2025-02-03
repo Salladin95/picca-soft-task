@@ -6,6 +6,8 @@ import { updateEmployee } from "~/app/redux"
 import { useAppDispatch, useSelectEmployeeById } from "~/app/redux/hooks.ts"
 import { EditEmployeeForm, EditEmployeeFormData } from "~/features/edit-employee-form"
 
+import "./edit-employee.scss"
+
 export function EditEmployeePage() {
 	const navigate = useNavigate()
 	const params = useParams<WithId>()
@@ -19,11 +21,13 @@ export function EditEmployeePage() {
 
 	const onSubmit = (data: EditEmployeeFormData) => {
 		dispatch(updateEmployee({ ...employee, ...data, birthday: formatDate(data.birthday) }))
+		navigate("/")
 	}
 
 	return (
-		<section>
+		<main className={"edit-employee-page"}>
+			<h1 className={"edit-employee-page__title"}>Создание карточки работника</h1>
 			<EditEmployeeForm employee={employee} onSubmit={onSubmit} />
-		</section>
+		</main>
 	)
 }
