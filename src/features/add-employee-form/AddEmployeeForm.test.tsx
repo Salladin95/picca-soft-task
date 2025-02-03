@@ -14,14 +14,12 @@ describe("AddEmployeeForm", () => {
 			</BrowserRouter>,
 		)
 
-		// Clear all fields
 		await userEvent.clear(getByTestId("employee-name"))
 		await userEvent.clear(getByTestId("employee-phone"))
 
-		// Submit form
 		await userEvent.click(getByTestId("submit-btn"))
+
 		getByTestId("submit-btn").click()
-		// Check for validation errors
 		expect(getAllByTestId("form-field-error").length).toBe(2)
 	})
 })
