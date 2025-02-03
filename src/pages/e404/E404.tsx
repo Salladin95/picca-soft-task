@@ -1,5 +1,6 @@
-import { Button } from "~/shared/ui"
 import { Link } from "react-router-dom"
+
+import { Button } from "~/shared/ui"
 
 import "./e404.scss"
 
