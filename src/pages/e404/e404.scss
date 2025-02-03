@@ -1,0 +1,6 @@
+@use '~/shared/styles/mixins/utilities' as u;
+
+.e404 {
+  @include u.container(1280px, 10rem);
+  @include u.center(column);
+}

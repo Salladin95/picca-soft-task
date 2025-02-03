@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react"
+import { ChangeEvent, memo } from "react"
 
 import { cn } from "~/shared/lib"
 import { type FilterType } from "./contracts.ts"
@@ -15,7 +15,7 @@ export type FilterPanelProps = {
 	filter: FilterType
 } & WithClassName
 
-export function FilterPanel(props: FilterPanelProps) {
+export const FilterPanel = memo(function FilterPanel(props: FilterPanelProps) {
 	const { onFilterUpdate, className, filter } = props
 
 	function handleRoleUpdate(e: ChangeEvent<HTMLSelectElement>) {
@@ -29,11 +29,13 @@ export function FilterPanel(props: FilterPanelProps) {
 
 	return (
 		<div className={cn("filter-panel", className)}>
+			{/* Form field for selecting employee role */}
 			<FormField forId={"filter-by"} label="Фильтр по роли сотрудников" className={"mb-4"}>
 				<EmployeeRoleSelect value={filter.role} id={"filter-by"} onChange={handleRoleUpdate} />
 			</FormField>
 
+			{/* Checkbox for the archive filter */}
 			<Checkbox label={"В архиве"} checked={filter.isArchive} onChange={handleArchiveUpdate} />
 		</div>
 	)
-}
+})
