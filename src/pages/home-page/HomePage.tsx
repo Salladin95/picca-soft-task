@@ -23,7 +23,6 @@ export function HomePage() {
 				<SortControls sortBy={sortBy} onSortUpdate={handleSortUpdate} />
 			</div>
 			<EmployeeList className={"home-page__employee-list"} employees={currentEmployees} />
-
 			<Button className={"home-page__add-employee"} variant={"link"}>
 				<Link to="/add-employee">Добавить сотрудника</Link>
 			</Button>

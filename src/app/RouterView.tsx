@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import { MainPageLayout } from "~/widgets"
-import { HomePage, EditEmployeePage, AddEmployeePage } from "~/pages"
+import { HomePage, EditEmployeePage, AddEmployeePage, E404 } from "~/pages"
 
 export function RouterView() {
 	return (
@@ -12,6 +12,7 @@ export function RouterView() {
 					<Route path="/add-employee" element={<AddEmployeePage />} />
 					<Route path="/employee/:id" element={<EditEmployeePage />} />
 				</Route>
+				<Route path={"*"} element={<E404 />} />
 			</Routes>
 		</BrowserRouter>
 	)

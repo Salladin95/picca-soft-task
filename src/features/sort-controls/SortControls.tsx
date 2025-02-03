@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { cn } from "~/shared/lib"
 import { Button } from "~/shared/ui"
 import { WithClassName } from "~/shared/types"
@@ -10,7 +11,7 @@ export type SortControlsProps = {
 	sortBy: SortByType
 } & WithClassName
 
-export function SortControls(props: SortControlsProps) {
+export const SortControls = memo(function SortControls(props: SortControlsProps) {
 	const { onSortUpdate, className, sortBy } = props
 
 	function handleSortUpdate(sort: SortByType) {
@@ -36,4 +37,4 @@ export function SortControls(props: SortControlsProps) {
 			</Button>
 		</div>
 	)
-}
+})
