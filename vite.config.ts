@@ -19,5 +19,5 @@ export default defineConfig({
 			plugins: [autoprefixer],
 		},
 	},
-	base: "/picca-soft/",
+	base: "/picca-soft-task/",
 })

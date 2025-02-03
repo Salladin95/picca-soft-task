@@ -5,7 +5,7 @@ import { HomePage, EditEmployeePage, AddEmployeePage, E404 } from "~/pages"
 
 export function RouterView() {
 	return (
-		<BrowserRouter basename="/picca-soft/">
+		<BrowserRouter basename="/picca-soft-task/">
 			<Routes>
 				<Route path="/" element={<MainPageLayout />}>
 					<Route index element={<HomePage />} />
