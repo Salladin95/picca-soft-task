@@ -39,7 +39,7 @@
     }
 
     &:focus + .checked {
-      box-shadow: 0 0 5px c.$blue-400;
+      box-shadow: 0 0 0 3px rgba(c.$blue-400, 0.5);
     }
   }
 
@@ -68,5 +68,7 @@
 
   &__label {
     @include t.typography(1rem, 500);
+    white-space: nowrap
   }
 }
+

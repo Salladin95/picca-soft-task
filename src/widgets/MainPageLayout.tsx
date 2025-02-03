@@ -7,7 +7,6 @@ export function MainPageLayout() {
 				<Link to={"/"}>Employees</Link>
 			</header>
 			<Outlet />
-			<footer>FOOTER</footer>
 		</>
 	)
 }

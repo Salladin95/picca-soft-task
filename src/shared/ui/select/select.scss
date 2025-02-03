@@ -2,22 +2,23 @@
 @use '~/shared/styles/mixins/utilities' as u;
 @use '~/shared/styles/mixins/typography' as t;
 
-.select-element {
+.select {
   width: 100%;
   padding: 10px 15px;
   border: 1px solid c.$gray;
   border-radius: 5px;
-  @include t.paragraph();
   background-color: c.$light-gray;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
+  @include t.paragraph();
+
   &:hover {
-    border-color: c.$blue;
+    border-color: c.$blue-500;
   }
 
   &:focus {
-    border-color: c.$blue;
-    box-shadow: 0 0 5px rgba(c.$blue, 0.5);
+    border-color: c.$blue-500;
+    box-shadow: 0 0 5px rgba(c.$blue-500, 0.5);
     outline: none;
   }
 

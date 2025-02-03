@@ -1,0 +1,64 @@
+@use '~/shared/styles/colors' as c;
+@use '~/shared/styles/mixins/utilities' as u;
+@use '~/shared/styles/mixins/typography' as t;
+
+.button {
+  @include u.p(0.5rem, 0.8rem);
+  @include t.paragraph();
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(c.$blue-500, 0.5);
+  }
+
+  &--primary {
+    background-color: c.$white;
+    color: c.$main-text;
+    border: 1px solid c.$gray;
+    border-radius: 0.8rem;
+
+    &:hover {
+      background-color: c.$blue-100;
+      border-color: c.$blue-500;
+      color: c.$blue-600;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(c.$blue-500, 0.5);
+    }
+
+    &[data-active='true'] {
+      background-color: c.$blue-500;
+      color: c.$white;
+      border-color: c.$blue-500;
+
+      &:hover {
+        background-color: c.$blue-600;
+        border-color: c.$blue-600;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(c.$blue-600, 0.5);
+      }
+    }
+  }
+
+  &--link {
+    background-color: transparent;
+    color: c.$blue-500;
+    border: none;
+    padding: 0;
+
+    &:hover {
+      color: c.$blue-600;
+    }
+
+    &:focus {
+      box-shadow: none;
+      text-decoration: underline;
+    }
+  }
+}
+

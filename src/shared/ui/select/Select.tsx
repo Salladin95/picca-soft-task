@@ -1,5 +1,8 @@
 import { forwardRef, HTMLProps } from "react"
 
+import "./select.scss"
+import { cn } from "~/shared/lib"
+
 export interface Option {
 	value: string
 	label: string
@@ -10,9 +13,9 @@ export type SelectProps = HTMLProps<HTMLSelectElement> & {
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {
-	const { options, ...rest } = props
+	const { options, className, ...rest } = props
 	return (
-		<select {...rest} ref={ref} className={"select-element"}>
+		<select {...rest} ref={ref} className={cn("select", className)}>
 			{options.map((option) => (
 				<option key={option.value} value={option.value}>
 					{option.label}

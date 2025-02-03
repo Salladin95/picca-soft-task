@@ -1,0 +1,59 @@
+@use '~/shared/styles/mixins/utilities' as u;
+@use '~/shared/styles/mixins/typography' as t;
+
+.home-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
+
+  @include u.px(1rem);
+
+  &__title {
+    @include t.heading(1);
+    margin-bottom: 3.2rem;
+    text-align: center;
+  }
+
+  &__controls {
+    @include u.flexbox(stretch, space-between);
+    gap: 10rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__employee-list {
+    margin-bottom: 2.5rem;
+  }
+
+  &__add-employee {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .home-page {
+    &__controls {
+      gap: 2rem;
+    }
+
+    &__title {
+      @include t.heading(3);
+    }
+  }
+  .sort-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .home-page {
+    &__controls {
+      flex-direction: column;
+      margin-bottom: 3rem;
+    }
+
+    &__title {
+      @include t.heading(4);
+    }
+  }
+}
