@@ -1,0 +1,26 @@
+@use 'sass:color';
+@use '~/shared/styles/colors' as c;
+@use '~/shared/styles/mixins/utilities' as u;
+@use '~/shared/styles/mixins/typography' as t;
+
+.header {
+  @include u.container();
+  background-color: c.$light-gray;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  .header__logo {
+    @include t.typography(1.5rem, 700);
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    color: c.$blue-500;
+    text-decoration: none;
+
+    &:hover {
+      color: color.adjust(c.$blue-500, $lightness: -10%);
+    }
+  }
+}

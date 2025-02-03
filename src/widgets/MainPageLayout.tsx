@@ -1,11 +1,11 @@
-import { Link, Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom"
+
+import { Header } from "~/shared/ui"
 
 export function MainPageLayout() {
 	return (
 		<>
-			<header>
-				<Link to={"/"}>Employees</Link>
-			</header>
+			<Header />
 			<Outlet />
 		</>
 	)
