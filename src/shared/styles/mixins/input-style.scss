@@ -1,0 +1,30 @@
+@use 'sass:color';
+@use '~/shared/styles/colors' as c;
+@use '~/shared/styles/mixins/utilities' as u;
+@use '~/shared/styles/mixins/typography' as t;
+
+@mixin input-style($min-height: 3.125rem, $padding-y: 0.25rem, $padding-x: 1rem, $font-size: 1rem) {
+  width: 100%;
+  border: 1px solid c.$gray;
+  border-radius: 4px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  min-height: $min-height;
+  box-sizing: border-box;
+
+  @include u.py($padding-y);
+  @include u.px($padding-x);
+  @include t.paragraph($font-size);
+
+  background-color: c.$white;
+  color: c.$dark-gray;
+
+  &:focus-within,
+  &:hover {
+    border-color: color.adjust(c.$gray, $lightness: -15%, $space: hsl);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  }
+
+  &::placeholder {
+    color: color.scale(c.$gray, $lightness: -30%);
+  }
+}

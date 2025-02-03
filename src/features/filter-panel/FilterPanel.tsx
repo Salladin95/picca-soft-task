@@ -6,7 +6,7 @@ import { WithClassName } from "~/shared/types"
 import { isEmployeeRole } from "~/shared/guards"
 import { Checkbox, FormField } from "~/shared/ui"
 import { EMPLOYEE_ROLES } from "~/entities/employee"
-import { FilterRoleSelect } from "~/entities/filter-role-select"
+import { EmployeeRoleSelect } from "~/entities/filter-role-select"
 
 import "./filter-panel.scss"
 
@@ -30,7 +30,7 @@ export function FilterPanel(props: FilterPanelProps) {
 	return (
 		<div className={cn("filter-panel", className)}>
 			<FormField forId={"filter-by"} label="Фильтр по роли сотрудников" className={"mb-4"}>
-				<FilterRoleSelect value={filter.role} id={"filter-by"} onChange={handleRoleUpdate} />
+				<EmployeeRoleSelect value={filter.role} id={"filter-by"} onChange={handleRoleUpdate} />
 			</FormField>
 
 			<Checkbox label={"В архиве"} checked={filter.isArchive} onChange={handleArchiveUpdate} />

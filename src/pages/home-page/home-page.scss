@@ -2,11 +2,9 @@
 @use '~/shared/styles/mixins/typography' as t;
 
 .home-page {
+  @include u.container();
   max-width: 1200px;
   margin: 0 auto;
-  padding-top: 2rem;
-
-  @include u.px(1rem);
 
   &__title {
     @include t.heading(1);

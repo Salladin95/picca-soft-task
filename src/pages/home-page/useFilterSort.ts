@@ -6,7 +6,6 @@ import { isFilter, isSortBy } from "~/shared/guards"
 import { SORT_BY, SortByType } from "~/features/sort-controls"
 import { getSafeLocalStoreItem, setToLocalStorage } from "~/shared/lib"
 
-
 interface UseFilterSortReturnType {
 	filter: FilterType
 	sortBy: SortByType

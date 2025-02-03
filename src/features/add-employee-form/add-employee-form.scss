@@ -1,0 +1,29 @@
+.add-employee-form {
+  max-width: 760px;
+  margin: 0 auto;
+
+  &__select {
+    margin-bottom: 1.4rem;
+  }
+
+  &__inputs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  &__controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .add-employee-form {
+    &__inputs {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

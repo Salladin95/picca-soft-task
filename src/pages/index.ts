@@ -1,3 +1,3 @@
 export * from "./home-page"
-export * from "./AddEmployee"
-export * from "./EditEmployeePage"
+export * from "./add-employee"
+export * from "./edit-employee"

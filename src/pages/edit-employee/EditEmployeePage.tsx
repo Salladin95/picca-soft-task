@@ -3,8 +3,8 @@ import { useParams, useNavigate } from "react-router-dom"
 import { WithId } from "~/shared/types"
 import { formatDate } from "~/shared/lib"
 import { updateEmployee } from "~/app/redux"
-import { useAppDispatch, useSelectEmployeeById } from "~/app/redux/hooks"
-import { EditEmployeeForm, EditEmployeeFormData } from "src/features/edit-employee-form"
+import { useAppDispatch, useSelectEmployeeById } from "~/app/redux/hooks.ts"
+import { EditEmployeeForm, EditEmployeeFormData } from "~/features/edit-employee-form"
 
 export function EditEmployeePage() {
 	const navigate = useNavigate()

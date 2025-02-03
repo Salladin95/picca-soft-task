@@ -1,32 +1,15 @@
 @use '~/shared/styles/colors' as c;
-@use '~/shared/styles/mixins/utilities' as u;
-@use '~/shared/styles/mixins/typography' as t;
+@use '~/shared/styles/mixins/input-style' as s;
 
 .select {
-  width: 100%;
-  padding: 10px 15px;
-  border: 1px solid c.$gray;
-  border-radius: 5px;
-  background-color: c.$light-gray;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-
-  @include t.paragraph();
-
-  &:hover {
-    border-color: c.$blue-500;
-  }
-
-  &:focus {
-    border-color: c.$blue-500;
-    box-shadow: 0 0 5px rgba(c.$blue-500, 0.5);
-    outline: none;
-  }
+  @include s.input-style();
 
   &.select-element-error {
     border-color: c.$red;
   }
 
-  &::placeholder {
-    color: c.$gray;
+  option {
+    color: c.$dark-gray;
+    background-color: c.$white;
   }
 }

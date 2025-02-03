@@ -1,0 +1,14 @@
+@use '~/shared/styles/mixins/input-style' as s;
+
+.date-picker {
+  @include s.input-style();
+
+  .react-datepicker__input-container input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: inherit;
+    font-size: inherit;
+  }
+}

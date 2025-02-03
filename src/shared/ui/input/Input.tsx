@@ -1,6 +1,6 @@
 import React from "react"
 
-import { focusFirstInput } from "~/shared/lib"
+import { cn, focusFirstInput } from "~/shared/lib"
 
 import "./input.scss"
 
@@ -22,13 +22,13 @@ export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "pref
 export const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 	const { id, className, error, prefix, suffix, ...rest } = props
 	return (
-		<div className={`${className} input-wrapper ${error ? "input-wrapper_error" : ""}`} onClick={focusFirstInput}>
+		<div className={cn("input-wrapper", className, { "input-wrapper_error": error })} onClick={focusFirstInput}>
 			{prefix || null}
 			<input
-				aria-invalid={error}
+				aria-invalid={Boolean(error)}
 				autoComplete="off"
-				className={'input-wrapper__input input p3'}
-				data-error={error}
+				className={"input-wrapper__input input p3"}
+				data-error={Boolean(error)}
 				id={id}
 				ref={ref}
 				{...rest}

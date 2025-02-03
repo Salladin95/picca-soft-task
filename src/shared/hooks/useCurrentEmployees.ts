@@ -5,10 +5,10 @@ import { applySort, SortByType } from "~/features/sort-controls"
 import { applyFilter, FilterType } from "~/features/filter-panel"
 
 type UseCurrentEmployeesProps = {
-	employees: EmployeeType[];
-	filter: FilterType;
-	sortBy: SortByType;
-};
+	employees: EmployeeType[]
+	filter: FilterType
+	sortBy: SortByType
+}
 
 /**
  * Custom hook to manage and update the current employees state based on the provided employees, filter, and sortBy values.
@@ -18,12 +18,12 @@ type UseCurrentEmployeesProps = {
  */
 export function useCurrentEmployees({ employees, filter, sortBy }: UseCurrentEmployeesProps): EmployeeType[] {
 	const [currentEmployees, setCurrentEmployees] = useState<EmployeeType[]>(() =>
-		applySort(applyFilter(employees, filter), sortBy)
-	);
+		applySort(applyFilter(employees, filter), sortBy),
+	)
 
 	useEffect(() => {
-		setCurrentEmployees(applySort(applyFilter(employees, filter), sortBy));
-	}, [employees, filter, sortBy]);
+		setCurrentEmployees(applySort(applyFilter(employees, filter), sortBy))
+	}, [employees, filter, sortBy])
 
-	return currentEmployees;
+	return currentEmployees
 }

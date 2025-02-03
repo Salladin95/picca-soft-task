@@ -1,7 +1,8 @@
 import { forwardRef, HTMLProps } from "react"
 
-import "./select.scss"
 import { cn } from "~/shared/lib"
+
+import "./select.scss"
 
 export interface Option {
 	value: string
