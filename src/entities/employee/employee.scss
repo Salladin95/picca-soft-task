@@ -1,0 +1,42 @@
+.employee {
+  padding: 1rem;
+  border: 1px solid #d5d8dd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  p {
+    margin: 0.5rem 0;
+    color: #2e3238;
+  }
+
+  &__name, &__role, &__phone {
+    font-size: 1rem;
+  }
+
+  &__name {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  &__role {
+    color: #5c6470;
+  }
+
+  &__phone {
+    color: #0078cf;
+  }
+
+  &__label {
+    font-weight: bold;
+    color: #5c6470;
+    margin-right: 0.5rem;
+  }
+}

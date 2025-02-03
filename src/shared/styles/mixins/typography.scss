@@ -19,6 +19,8 @@
     @include typography(2rem, $weight, 1.3, -0.015em);
   } @else if $level == 3 {
     @include typography(1.75rem, $weight, 1.4, -0.01em);
+  } @else if $level == 4 {
+    @include typography(1.2rem, $weight, 1, -0.01em);
   }
 }
 
