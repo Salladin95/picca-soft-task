@@ -22,7 +22,7 @@ export function FormField(props: FormFieldProps) {
 				</label>
 			</div>
 			{children}
-			{error && <span className={"form-field__error"}>{error}</span>}
+			{error && <span data-testid="form-field-error" className={"form-field__error"}>{error}</span>}
 		</div>
 	)
 }

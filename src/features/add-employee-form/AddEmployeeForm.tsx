@@ -8,24 +8,32 @@ import { isEmployeeRole } from "~/shared/guards"
 import { ERROR_MESSAGES } from "~/shared/constants"
 import { isValidPhoneNumber } from "react-phone-number-input"
 import { EmployeeRoleSelect } from "~/entities/filter-role-select"
-import { EmployeeType, MIN_EMPLOYEE_AGE } from "~/entities/employee"
 import { FormField, Input, DatePicker, PhoneInput, Button } from "~/shared/ui"
+import { EmployeeRoleType, EmployeeType, MIN_EMPLOYEE_AGE } from "~/entities/employee"
 
 import "./add-employee-form.scss"
+import { parsePhoneNumber } from "react-phone-number-input/min"
 
 const addEmployeeSchema = z.object({
 	name: z.string().min(1, ERROR_MESSAGES.NAME_REQUIRED),
-	phone: z.string().min(1, ERROR_MESSAGES.PHONE_REQUIRED).refine(isValidPhoneNumber, ERROR_MESSAGES.INVALID_PHONE),
+	phone: z
+		.string()
+		.min(1, ERROR_MESSAGES.PHONE_REQUIRED)
+		.transform((phone) => parsePhoneNumber(phone)?.format("E.164") || "")
+		.refine(isValidPhoneNumber, ERROR_MESSAGES.INVALID_PHONE),
 	birthday: z
 		.date({ required_error: ERROR_MESSAGES.DATE_REQUIRED })
 		.max(subYears(new Date(), MIN_EMPLOYEE_AGE), ERROR_MESSAGES.MINIMUM_AGE),
 	role: z.string().refine(isEmployeeRole),
 })
 
-export type AddEmployeeFormData = z.infer<typeof addEmployeeSchema>
+export type AddEmployeeFormData = Omit<EmployeeType, "birthday" | "role" | "isArchive"> & {
+	birthday: Date
+	role: Omit<EmployeeRoleType, "">
+}
 
 type EmployeeFormProps = {
-	employee: Omit<EmployeeType, "birthday"> & { birthday: Date }
+	employee: AddEmployeeFormData
 	onSubmit: (data: AddEmployeeFormData) => void
 }
 
@@ -37,7 +45,7 @@ export function AddEmployeeForm(props: EmployeeFormProps) {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<z.infer<typeof addEmployeeSchema>>({
+	} = useForm({
 		resolver: zodResolver(addEmployeeSchema),
 		defaultValues: employee,
 	})
@@ -46,7 +54,13 @@ export function AddEmployeeForm(props: EmployeeFormProps) {
 		<form className={"add-employee-form"} onSubmit={handleSubmit(onSubmit)}>
 			<div className={"add-employee-form__inputs"}>
 				<FormField forId={`name-${employee.id}`} label="Имя работника:" error={errors.name?.message} required>
-					<Input placeholder={"Имя"} type="text" id={`name-${employee.id}`} {...register("name")} />
+					<Input
+						placeholder={"Имя"}
+						type="text"
+						id={`name-${employee.id}`}
+						data-testid="employee-name"
+						{...register("name")}
+					/>
 				</FormField>
 
 				<FormField forId={`phone-${employee.id}`} label="Телефон:" error={errors.phone?.message} required>
@@ -59,6 +73,7 @@ export function AddEmployeeForm(props: EmployeeFormProps) {
 								id={`phone-${employee.id}`}
 								{...rest}
 								onChange={(value: string) => onChange(value)}
+								data-testid="employee-phone"
 							/>
 						)}
 					/>
@@ -75,6 +90,7 @@ export function AddEmployeeForm(props: EmployeeFormProps) {
 								dateFormat="dd.MM.yyyy"
 								placeholderText="Выберите дату"
 								id={`birthday-${employee.id}`}
+								data-testid="employee-birthday"
 							/>
 						)}
 					/>
@@ -88,7 +104,12 @@ export function AddEmployeeForm(props: EmployeeFormProps) {
 				error={errors.role?.message}
 				required
 			>
-				<EmployeeRoleSelect variant={"employee"} id={`role-${employee.id}`} {...register("role")} />
+				<EmployeeRoleSelect
+					variant={"employee"}
+					id={`role-${employee.id}`}
+					data-testid="employee-role"
+					{...register("role")}
+				/>
 			</FormField>
 
 			<div className={"add-employee-form__controls"}>
@@ -96,7 +117,7 @@ export function AddEmployeeForm(props: EmployeeFormProps) {
 					<Link to={"/"}>Отмена</Link>
 				</Button>
 
-				<Button className={"add-employee-form__submit-btn"} type="submit">
+				<Button data-testid="submit-btn" className={"add-employee-form__submit-btn"} type="submit">
 					Сохранить
 				</Button>
 			</div>
