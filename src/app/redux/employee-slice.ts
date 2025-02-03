@@ -2,7 +2,7 @@ import { EmployeeType } from "~/entities/employee"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { LOCAL_STORE_KEYS } from "~/app/contracts"
-import { setToLocalStorage } from "~/shared/lib/localStore"
+import { setToLocalStorage } from "~/shared/lib/local-store.ts"
 
 export interface EmployeeState {
 	employees: EmployeeType[]

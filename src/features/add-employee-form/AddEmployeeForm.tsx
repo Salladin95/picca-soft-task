@@ -1,17 +1,17 @@
 import * as z from "zod"
+import { subYears } from "date-fns"
 import { Link } from "react-router-dom"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
+import { isEmployeeRole } from "~/shared/guards"
 import { ERROR_MESSAGES } from "~/shared/constants"
-import { validateEmployeeRole } from "~/shared/lib"
 import { isValidPhoneNumber } from "react-phone-number-input"
 import { EmployeeRoleSelect } from "~/entities/filter-role-select"
 import { EmployeeType, MIN_EMPLOYEE_AGE } from "~/entities/employee"
 import { FormField, Input, DatePicker, PhoneInput, Button } from "~/shared/ui"
 
 import "./add-employee-form.scss"
-import { subYears } from "date-fns"
 
 const addEmployeeSchema = z.object({
 	name: z.string().min(1, ERROR_MESSAGES.NAME_REQUIRED),
@@ -19,7 +19,7 @@ const addEmployeeSchema = z.object({
 	birthday: z
 		.date({ required_error: ERROR_MESSAGES.DATE_REQUIRED })
 		.max(subYears(new Date(), MIN_EMPLOYEE_AGE), ERROR_MESSAGES.MINIMUM_AGE),
-	role: z.string().refine(validateEmployeeRole),
+	role: z.string().refine(isEmployeeRole),
 })
 
 export type AddEmployeeFormData = z.infer<typeof addEmployeeSchema>

@@ -7,8 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { DATE_FORMAT } from "~/shared/lib"
 import { ERROR_MESSAGES } from "~/shared/constants"
 import { EmployeeType, MIN_EMPLOYEE_AGE } from "~/entities/employee"
-import { FormField, Input, DatePicker, PhoneInput, Button, Checkbox } from "~/shared/ui"
 import { isValidPhoneNumber, parsePhoneNumber } from "react-phone-number-input"
+import { FormField, Input, DatePicker, PhoneInput, Button, Checkbox } from "~/shared/ui"
 
 import "./edit-employee-form.scss"
 
