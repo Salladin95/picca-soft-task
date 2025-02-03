@@ -3,20 +3,21 @@ import { parse, subYears } from "date-fns"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
+import { ERROR_MESSAGES } from "~/shared/constants"
 import { EmployeeType, MIN_EMPLOYEE_AGE } from "~/entities/employee"
 import { FormField, Input, DatePicker, PhoneInput } from "~/shared/ui"
 import { isValidPhoneNumber, parsePhoneNumber } from "react-phone-number-input"
 
-const employeeSchema = z.object({
-	name: z.string().min(1, "Имя обязательно"),
-	phone: z.string().min(1, "Номер телефона обязателен").refine(isValidPhoneNumber, "Номер телефона не валиден"),
+const editEmployeeSchema = z.object({
+	name: z.string().min(1, ERROR_MESSAGES.NAME_REQUIRED),
+	phone: z.string().min(1, ERROR_MESSAGES.PHONE_REQUIRED).refine(isValidPhoneNumber, ERROR_MESSAGES.INVALID_PHONE),
 	birthday: z
-		.date({ required_error: "Дата рождения обязательна" })
-		.max(subYears(new Date(), MIN_EMPLOYEE_AGE), "Как минимум должно быть 18 лет"),
+		.date({ required_error: ERROR_MESSAGES.DATE_REQUIRED })
+		.max(subYears(new Date(), MIN_EMPLOYEE_AGE), ERROR_MESSAGES.DATE_IN_PAST),
 	isArchive: z.boolean(),
 })
 
-export type EditEmployeeFormData = z.infer<typeof employeeSchema>
+export type EditEmployeeFormData = z.infer<typeof editEmployeeSchema>
 
 type EmployeeFormProps = {
 	employee: EmployeeType
@@ -31,8 +32,8 @@ export function EditEmployeeForm(props: EmployeeFormProps) {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<z.infer<typeof employeeSchema>>({
-		resolver: zodResolver(employeeSchema),
+	} = useForm<z.infer<typeof editEmployeeSchema>>({
+		resolver: zodResolver(editEmployeeSchema),
 		defaultValues: {
 			name: employee.name,
 			phone: parsePhoneNumber(employee.phone)?.format("E.164"),
@@ -52,7 +53,12 @@ export function EditEmployeeForm(props: EmployeeFormProps) {
 					name="phone"
 					control={control}
 					render={({ field: { onChange, ...rest } }) => (
-						<PhoneInput country={"RU"} id={`phone-${employee.id}`} {...rest} onChange={(value) => onChange(value)} />
+						<PhoneInput
+							country={"RU"}
+							id={`phone-${employee.id}`}
+							{...rest}
+							onChange={(value: string) => onChange(value)}
+						/>
 					)}
 				/>
 			</FormField>

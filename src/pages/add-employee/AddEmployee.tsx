@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom"
 import { addEmployee } from "~/app/redux"
 import { formatDate } from "~/shared/lib"
 import { EmployeeType, initEmployee } from "~/entities/employee"
-import { useAppDispatch, useEmployees } from "~/app/redux/hooks"
+import { useAppDispatch, useEmployees } from "~/app/redux/hooks.ts"
 import { AddEmployeeForm, AddEmployeeFormData } from "~/features/add-employee-form"
+
+import "./add-employee.scss"
 
 export function AddEmployeePage() {
 	const dispatch = useAppDispatch()
@@ -25,8 +27,9 @@ export function AddEmployeePage() {
 	}
 
 	return (
-		<section>
+		<main className={"add-employee-page"}>
+			<h1 className={"add-employee-page__title"}>Создание карточки работника</h1>
 			<AddEmployeeForm employee={initialEmployee} onSubmit={onSubmit} />
-		</section>
+		</main>
 	)
 }

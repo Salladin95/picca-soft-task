@@ -1,21 +1,21 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
-import { type EmployeeType, EMPLOYEE_ROLE_TO_LABEL } from "~/entities/employee/contracts";
+import { type EmployeeType, EMPLOYEE_ROLE_TO_LABEL } from "~/entities/employee/contracts"
 
-import "./employee.scss";
+import "./employee.scss"
 
 type EmployeeProps = {
-	employee: EmployeeType;
-	onClick?: (employee: EmployeeType) => void;
-};
+	employee: EmployeeType
+	onClick?: (employee: EmployeeType) => void
+}
 
 export function Employee(props: EmployeeProps) {
-	const { employee, onClick } = props;
-	const navigate = useNavigate();
+	const { employee, onClick } = props
+	const navigate = useNavigate()
 
 	function handleClick() {
-		onClick?.(employee);
-		navigate(`/employee/${employee.id}`);
+		onClick?.(employee)
+		navigate(`/employee/${employee.id}`)
 	}
 
 	return (
@@ -30,5 +30,5 @@ export function Employee(props: EmployeeProps) {
 				<span className="employee__label">Телефон:</span> {employee.phone}
 			</p>
 		</section>
-	);
+	)
 }

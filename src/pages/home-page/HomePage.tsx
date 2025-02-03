@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 
+import { Button } from "~/shared/ui"
 import { useEmployees } from "~/app/redux/hooks"
 import { useCurrentEmployees } from "~/shared/hooks"
 import { FilterPanel } from "~/features/filter-panel"
@@ -8,7 +9,6 @@ import { SortControls } from "~/features/sort-controls"
 import { useFilterSort } from "~/pages/home-page/useFilterSort"
 
 import "./home-page.scss"
-import { Button } from "~/shared/ui"
 
 export function HomePage() {
 	const employees = useEmployees()

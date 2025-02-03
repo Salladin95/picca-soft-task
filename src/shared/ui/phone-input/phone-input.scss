@@ -1,0 +1,52 @@
+@use 'sass:color';
+@use '~/shared/styles/colors' as c;
+@use '~/shared/styles/mixins/utilities' as u;
+@use '~/shared/styles/mixins/typography' as t;
+
+.phone-input {
+  border: 1px solid c.$gray;
+  border-radius: 4px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  min-height: 3.125rem;
+  box-sizing: border-box;
+
+  @include u.py(0.25rem);
+  @include u.px(1rem);
+  @include t.paragraph(1rem);
+
+  background-color: c.$white;
+  color: c.$dark-gray;
+
+  .PhoneInputInput {
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: transparent;
+    color: inherit;
+    font-size: inherit;
+  }
+
+  &:focus-within,
+  &:hover {
+    border-color: color.adjust(c.$gray, $lightness: -15%, $space: hsl);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  }
+
+  &::placeholder {
+    color: color.scale(c.$gray, $lightness: -30%);
+  }
+
+  .PhoneInputCountry {
+    border-right: 1px solid c.$gray;
+    padding-right: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  .PhoneInputCountrySelect {
+    border: none;
+    background-color: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+}
+

@@ -1,0 +1,37 @@
+@use '~/shared/styles/mixins/utilities' as u;
+@use '~/shared/styles/mixins/typography' as t;
+
+.add-employee-page {
+  @include u.container();
+  padding-top: 8rem;
+
+  &__title {
+    @include t.heading(2);
+    text-align: center;
+    margin-bottom: 3.2rem;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .add-employee-page {
+    &__title {
+      @include t.heading(3);
+    }
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .add-employee-page {
+    &__title {
+      @include t.heading(4);
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .add-employee-page {
+    &__title {
+      @include t.heading(5);
+    }
+  }
+}

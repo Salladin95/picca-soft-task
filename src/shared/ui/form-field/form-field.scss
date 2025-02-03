@@ -4,6 +4,7 @@
 
 .form-field {
   width: 100%;
+  position: relative;
 
   &__label {
     margin-bottom: 0.5rem;
@@ -15,10 +16,12 @@
   }
 
   &__error {
-    display: block;
-    @include u.px(0.875rem);
-
-    margin-top: 0.5rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transform: translateY(0.2rem);
+    @include t.paragraph(0.875rem);
     color: c.$red;
+    padding-left: 0.5rem;
   }
 }

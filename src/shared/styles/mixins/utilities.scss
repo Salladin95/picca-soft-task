@@ -90,3 +90,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+@mixin container($max-width: 1280px, $py: 2rem, $px: 1rem) {
+  max-width: $max-width;
+  margin: 0 auto;
+  @include  py($px);
+  @include  px($px);
+}
