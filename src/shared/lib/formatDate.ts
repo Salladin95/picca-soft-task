@@ -1,7 +1,9 @@
 import { format } from "date-fns"
 
+export const DATE_FORMAT = "dd.MM.yyyy"
+
 /**
- * Formats a given date into `dd.mm.yyyy` format.
+ * Formats a given date into `dd.MM.yyyy` format.
  *
  * @param {Date} date - The date to be formatted.
  * @returns {string} - The formatted date in `dd.mm.yyyy` format.
@@ -12,5 +14,5 @@ import { format } from "date-fns"
  */
 
 export function formatDate(date: Date): string {
-	return format(date, "dd.mm.yyyy")
+	return format(date, DATE_FORMAT)
 }

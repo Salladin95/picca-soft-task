@@ -3,21 +3,22 @@ import { Link } from "react-router-dom"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { EmployeeType } from "~/entities/employee"
 import { ERROR_MESSAGES } from "~/shared/constants"
+import { validateEmployeeRole } from "~/shared/lib"
 import { isValidPhoneNumber } from "react-phone-number-input"
 import { EmployeeRoleSelect } from "~/entities/filter-role-select"
-import { validateDateInPast, validateEmployeeRole } from "~/shared/lib"
+import { EmployeeType, MIN_EMPLOYEE_AGE } from "~/entities/employee"
 import { FormField, Input, DatePicker, PhoneInput, Button } from "~/shared/ui"
 
 import "./add-employee-form.scss"
+import { subYears } from "date-fns"
 
 const addEmployeeSchema = z.object({
 	name: z.string().min(1, ERROR_MESSAGES.NAME_REQUIRED),
 	phone: z.string().min(1, ERROR_MESSAGES.PHONE_REQUIRED).refine(isValidPhoneNumber, ERROR_MESSAGES.INVALID_PHONE),
 	birthday: z
 		.date({ required_error: ERROR_MESSAGES.DATE_REQUIRED })
-		.refine(validateDateInPast, { message: ERROR_MESSAGES.DATE_IN_PAST }),
+		.max(subYears(new Date(), MIN_EMPLOYEE_AGE), ERROR_MESSAGES.MINIMUM_AGE),
 	role: z.string().refine(validateEmployeeRole),
 })
 
