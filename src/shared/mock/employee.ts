@@ -1,26 +1,32 @@
 import { EMPLOYEE_ROLES, EmployeeType } from "~/entities/employee"
 
-// Mock valid employees data
 export const validEmployees: EmployeeType[] = [
 	{
 		id: 1,
-		name: "John Doe",
-		role: EMPLOYEE_ROLES.COOK,
+		name: "Илья Емельянов",
 		isArchive: false,
-		phone: "123-456-7890",
-		birthday: "1990-01-01",
+		role: EMPLOYEE_ROLES.DRIVER,
+		phone: "+7 (883) 508-3269",
+		birthday: "12.02.1982",
 	},
 	{
 		id: 2,
-		name: "Jane Doe",
-		role: EMPLOYEE_ROLES.WAITER,
+		name: "Александр Ларионов",
 		isArchive: true,
-		phone: "098-765-4321",
-		birthday: "1992-02-02",
+		role: EMPLOYEE_ROLES.COOK,
+		phone: "+7 (823) 440-3602",
+		birthday: "26.01.1986",
+	},
+	{
+		id: 3,
+		name: "Богдан Давыдов",
+		isArchive: false,
+		role: EMPLOYEE_ROLES.DRIVER,
+		phone: "+7 (971) 575-2645",
+		birthday: "29.11.1990",
 	},
 ]
 
-// Mock invalid employee data
 export const invalidEmployee = {
 	id: "not_a_number",
 	name: 123,
@@ -31,18 +37,17 @@ export const invalidEmployee = {
 }
 
 export const validEmployee = {
-	id: "not_a_number",
-	name: 123,
-	role: "INVALID_ROLE",
-	isArchive: "not_a_boolean",
-	phone: 1234567890,
-	birthday: "not_a_date",
+	id: 1,
+	name: "Илья Емельянов",
+	isArchive: false,
+	role: EMPLOYEE_ROLES.DRIVER,
+	phone: "+7 (883) 508-3269",
+	birthday: "12.02.1982",
 }
 
 export function getValidEmployees(): EmployeeType[] {
 	return validEmployees
 }
-
 
 export function getValidEmployee(): unknown {
 	return validEmployee
