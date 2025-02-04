@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom"
 
 import { Button } from "~/shared/ui"
-import { useEmployees } from "~/app/redux/hooks"
-import { useCurrentEmployees } from "~/shared/hooks"
 import { FilterPanel } from "~/features/filter-panel"
 import { EmployeeList } from "~/features/employee-list"
 import { SortControls } from "~/features/sort-controls"
 import { useFilterSort } from "~/pages/home-page/useFilterSort"
+import { useCurrentEmployees, useEmployees } from "~/app/redux/hooks"
 
 import "./home-page.scss"
 

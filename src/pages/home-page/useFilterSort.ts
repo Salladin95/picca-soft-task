@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react"
 import { EMPLOYEE_ROLES } from "~/entities/employee"
 import { FilterType } from "~/features/filter-panel"
-import { LOCAL_STORE_KEYS } from "~/app/contracts.ts"
+import { LOCAL_STORE_KEYS } from "~/app/contracts"
 import { isFilter, isSortBy } from "~/shared/guards"
 import { SORT_BY, SortByType } from "~/features/sort-controls"
 import { getSafeLocalStoreItem, setToLocalStorage } from "~/shared/lib"
@@ -30,21 +30,15 @@ export function useFilterSort(): UseFilterSortReturnType {
 		getSafeLocalStoreItem<SortByType>(LOCAL_STORE_KEYS.SORT_BY, isSortBy, SORT_BY.NAME),
 	)
 
-	const handleFilterSortUpdate = useCallback(
-		(filter: FilterType) => {
-			setFilter(filter)
-			setToLocalStorage(LOCAL_STORE_KEYS.FILTER_BY, filter)
-		},
-		[setFilter, setToLocalStorage],
-	)
+	const handleFilterSortUpdate = useCallback((filter: FilterType) => {
+		setFilter(filter)
+		setToLocalStorage(LOCAL_STORE_KEYS.FILTER_BY, filter)
+	}, [])
 
-	const handleSortUpdate = useCallback(
-		(sortBy: SortByType) => {
-			setSortBy(sortBy)
-			setToLocalStorage(LOCAL_STORE_KEYS.SORT_BY, sortBy)
-		},
-		[setSortBy, setToLocalStorage],
-	)
+	const handleSortUpdate = useCallback((sortBy: SortByType) => {
+		setSortBy(sortBy)
+		setToLocalStorage(LOCAL_STORE_KEYS.SORT_BY, sortBy)
+	}, [])
 
 	return {
 		filter,

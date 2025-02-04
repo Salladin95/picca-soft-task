@@ -7,13 +7,14 @@ import { useAppDispatch, useEmployees } from "~/app/redux/hooks.ts"
 import { AddEmployeeForm, AddEmployeeFormData } from "~/features/add-employee-form"
 
 import "./add-employee.scss"
+import { useMemo } from "react"
 
 export function AddEmployeePage() {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
 	const employees = useEmployees()
-	const initialEmployee = initEmployee(employees.length + 1)
+	const initialEmployee = useMemo(() => initEmployee(employees.length + 1), [employees.length])
 
 	const onSubmit = (data: AddEmployeeFormData) => {
 		const employee = {

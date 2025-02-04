@@ -39,7 +39,7 @@ export const invalidEmployee = {
 	birthday: "not_a_date",
 }
 
-export const validEmployee: AddEmployeeFormData = {
+export const validFormEmployee: AddEmployeeFormData = {
 	id: 1,
 	name: "Илья Емельянов",
 	role: EMPLOYEE_ROLES.DRIVER,
@@ -47,13 +47,13 @@ export const validEmployee: AddEmployeeFormData = {
 	birthday: new Date("12.02.1982"),
 }
 
-export const validFormEmployee = {
+export const validEmployee: EmployeeType = {
 	id: 1,
 	name: "Илья Емельянов",
 	isArchive: false,
 	role: EMPLOYEE_ROLES.DRIVER,
 	phone: parsePhoneNumber("+7 (928)0000000")?.format("E.164") || "+7 (928) 000-0000",
-	birthday: new Date("12.02.1982"),
+	birthday: "12.02.1982",
 }
 
 export const emptyFormEmployee: AddEmployeeFormData = {

@@ -2,7 +2,7 @@ import { EmployeeType } from "~/entities/employee"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { LOCAL_STORE_KEYS } from "~/app/contracts"
-import { setToLocalStorage } from "~/shared/lib/local-store.ts"
+import { setToLocalStorage } from "~/shared/lib/local-store"
 
 export interface EmployeeState {
 	employees: EmployeeType[]
@@ -20,7 +20,6 @@ const employeeSlice = createSlice({
 			state.employees = action.payload
 			setToLocalStorage(LOCAL_STORE_KEYS.EMPLOYEES, action.payload)
 		},
-
 		updateEmployee: (state, action: PayloadAction<EmployeeType>) => {
 			const updatedEmployees = state.employees.map((employee) =>
 				employee.id === action.payload.id ? action.payload : employee,
