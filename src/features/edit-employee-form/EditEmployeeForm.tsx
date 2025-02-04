@@ -50,7 +50,7 @@ export function EditEmployeeForm(props: EmployeeFormProps) {
 		<form className={"edit-employee-form"} onSubmit={handleSubmit(onSubmit)}>
 			<div className={"edit-employee-form__inputs"}>
 				<FormField forId={`name-${employee.id}`} label="Имя работника:" error={errors.name?.message} required>
-					<Input placeholder={"Имя"} type="text" id={`name-${employee.id}`} {...register("name")} />
+					<Input data-testid="employee-name" placeholder={"Имя"} type="text" id={`name-${employee.id}`} {...register("name")} />
 				</FormField>
 
 				<FormField forId={`phone-${employee.id}`} label="Телефон:" error={errors.phone?.message} required>
@@ -59,6 +59,7 @@ export function EditEmployeeForm(props: EmployeeFormProps) {
 						control={control}
 						render={({ field: { onChange, ...rest } }) => (
 							<PhoneInput
+								data-testid="employee-phone"
 								country={"RU"}
 								id={`phone-${employee.id}`}
 								{...rest}
@@ -70,6 +71,7 @@ export function EditEmployeeForm(props: EmployeeFormProps) {
 
 				<FormField forId={`birthday-${employee.id}`} label="Дата рождения:" error={errors.birthday?.message} required>
 					<Controller
+						data-testid="employee-birthday"
 						name="birthday"
 						control={control}
 						render={({ field: { onChange, value } }) => (
@@ -85,14 +87,18 @@ export function EditEmployeeForm(props: EmployeeFormProps) {
 				</FormField>
 			</div>
 
-			<Checkbox label="В архив" id={`is-archive-${employee.id}`} {...register("isArchive")} />
+			<Checkbox
+				data-testid="employee-is-archive"
+				label="В архив" id={`is-archive-${employee.id}`} {...register("isArchive")} />
 
 			<div className={"edit-employee-form__controls"}>
 				<Button variant="link">
 					<Link to={"/"}>Отмена</Link>
 				</Button>
 
-				<Button className={"edit-employee-form__submit-btn"} type="submit">
+				<Button
+					data-testid="submit-btn"
+					className={"edit-employee-form__submit-btn"} type="submit">
 					Сохранить
 				</Button>
 			</div>
